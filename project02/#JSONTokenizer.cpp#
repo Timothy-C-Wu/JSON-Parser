@@ -1,0 +1,82 @@
+//
+// Created by Timothy Wu on 2019-11-13.
+//
+
+#include "JSONTokenizer.hpp"
+#include <iostream>
+#include <iomanip>
+
+JSONTokenizer::JSONTokenizer(std::string name): inputFileName{name}{
+    inputStream.open(inputFileName, std::ios::in);
+}
+
+bool JSONTokenizer::charOfInterest(char c) {
+    return c == '"' || c == ',' || c == ':' || c == '[' || c == ']' || c == '{' || c == '}' || isdigit(c);
+}
+
+JSONToken JSONTokenizer::getToken() {
+    if(! inputStream.is_open()){
+        std::cout << "JSONTokenizer::getToken() called with a stream that is not open." << std::endl;
+        std::cout << "Make sure that " << inputFileName << " exists and is readable. Terminating.";
+        exit(2);
+    }
+    JSONToken token;
+    char c;
+    if(inputStream.eof()){
+        token.endOfFile() = true;
+        return token;
+    }
+    while(inputStream.get(c) && ! charOfInterest(c)){
+    }
+    if(c == '"'){
+        std::string attributeName;
+        token.isString() = true;
+        while (inputStream.peek() != '"' && inputStream.get(c))
+            attributeName += c;
+        token.makeAttributeName(attributeName);
+    }
+    else if(isdigit(c)){
+        std::string attributeName;
+        token.isDigit() = true;
+        while(inputStream.peek() != ',' && inputStream.get(c))
+            attributeName += c;
+        token.makeAttributeName(attributeName);
+    }
+    else if(c == ','){
+        std::string attributeName;
+        token.isComma() = true;
+//        attributeName += c;
+        token.makeAttributeName(attributeName);
+    }
+    else if(c == ':'){
+            std::string attributeName;
+            token.isColon() = true;
+        attributeName +=c;
+            token.makeAttributeName(attributeName);
+    }
+    else if (c == '[') {
+        std::string attributeName;
+        token.isOpenBracket() = true;
+        attributeName += c;
+        token.makeAttributeName(attributeName);
+    }
+    else if (c == ']'){
+        std::string attributeName;
+        token.isCloseBracket() = true;
+        attributeName += c;
+        token.makeAttributeName(attributeName);
+    }
+    else if (c == '{'){
+        std::string attributeName;
+        token.isOpenCurly() = true;
+        attributeName += c;
+        token.makeAttributeName(attributeName);
+    }
+    else if (c == '}'){
+        std::string attributeName;
+        token.isCloseCurly() = true;
+        attributeName += c;
+        token.makeAttributeName(attributeName);
+    }
+    return token;
+}

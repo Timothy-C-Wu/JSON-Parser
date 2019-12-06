@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Volumes/twu's home/CS315F19/project02/Entity.cpp
+Entity.hpp
+/Volumes/twu's home/CS315F19/project02/Entity.hpp
+
+/Volumes/twu's home/CS315F19/project02/Entity.hpp
+EntityInstance.hpp
+/Volumes/twu's home/CS315F19/project02/EntityInstance.hpp
+iostream
+-
+iomanip
+-
+vector
+-
+map
+-
+string
+-
+ostream
+-
+fstream
+-
+
+/Volumes/twu's home/CS315F19/project02/EntityInstance.hpp
+pair.h
+/Volumes/twu's home/CS315F19/project02/pair.h
+vector
+-
+string
+-
+
+/Volumes/twu's home/CS315F19/project02/pair.h
+string
+-
+
